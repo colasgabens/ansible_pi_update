@@ -1,0 +1,18 @@
+
+---
+- hosts: all
+  remote_user: pi
+  become: yes
+  tasks: 
+  - name: update packages
+    apt: update_cache=yes force_apt_get=yes cache_valid_time=3600
+  - name: Upgrade the OS (apt-get dist-upgrade)
+    apt:
+      upgrade: dist
+  - name: Remove useless packages from the cache
+    apt:
+        autoclean: yes
+
+  - name: Remove dependencies that are no longer required
+    apt:
+      autoremove: yes
